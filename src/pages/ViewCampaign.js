@@ -2,12 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { Navbar } from "../components";
 import { useParams } from "react-router-dom";
-import campaigns from "../data";
+import { useGlobalContext } from "../context";
 
 const ViewCampaign = () => {
   const { id } = useParams();
+  const { campaigns } = useGlobalContext();
   const campaign = campaigns.find((campaign) => campaign.id == id);
-  const { img, title, desc, contri, address } = campaign;
+
+  const { title, desc, img, contri, address } = campaign;
+
   return (
     <main>
       <Navbar />

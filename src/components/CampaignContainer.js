@@ -1,13 +1,17 @@
 import React from "react";
-import campaigns from "../data";
 import Campaign from "./Campaign";
 import styled from "styled-components";
+import { useGlobalContext } from "../context";
 
 const CampaignContainer = () => {
+  const { campaigns } = useGlobalContext();
   return (
     <Wrapper>
       <div className="flexbox-container">
         {campaigns.map((campaign) => {
+          {
+            /* console.log(campaign); */
+          }
           return <Campaign key={campaign.id} {...campaign} />;
         })}
       </div>

@@ -4,23 +4,26 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components";
 import newCampaign from "../images/newCampaign.svg";
-import campaigns from "../data";
+import { useGlobalContext } from "../context";
 
 const Newcampaign = () => {
+  const { addCampaigns } = useGlobalContext();
   const navigate = useNavigate();
-  const [contribution, setContribution] = useState("");
+  const [contri, setContribution] = useState("");
   const [title, setTitle] = useState("");
   const [desc, setDescription] = useState("");
   const [img, setImg] = useState("");
+  const [address, setAddress] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (contribution && title && desc) {
-      campaigns.push({
-        contribution,
+    if (contri && title && desc) {
+      addCampaigns({
         title,
-        desc,
+        contri,
         img,
+        address,
+        desc,
       });
       navigate("/campaigns");
     } else {
@@ -46,7 +49,7 @@ const Newcampaign = () => {
             <tr>
               <td>
                 <form onSubmit={handleSubmit}>
-                  <label for="contribution">Contribution</label>
+                  <p className="label">Contribution</p>
                   <input
                     type="number"
                     min="100"
@@ -55,21 +58,21 @@ const Newcampaign = () => {
                     placeholder="Contribution"
                     onChange={(e) => setContribution(e.target.value)}
                   />
-                  <label for="title">Title</label>
+                  <p className="label">Title</p>
                   <input
                     type="text"
                     name="title"
                     placeholder=""
                     onChange={(e) => setTitle(e.target.value)}
                   />
-                  <label for="description">Description</label>
+                  <p className="label">Description</p>
                   <input
                     type="text"
                     name="description"
                     placeholder="Brief description about your campaign"
                     onChange={(e) => setDescription(e.target.value)}
                   />
-                  <label for="link">Image link</label>
+                  <p className="label">Image link</p>
                   <input
                     type="text"
                     name="link"
@@ -104,7 +107,6 @@ const Wrapper = styled.div`
   td,
   th {
     text-align: left;
-    padding: 8px;
   }
   td {
     width: calc(70vw / 2);
@@ -120,8 +122,14 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
   }
-  label {
+  h3 {
     display: block;
+  }
+
+  .label {
+    color: var(--clr-grey-1);
+    margin-bottom: 0;
+    margin-top: 20px;
   }
 `;
 

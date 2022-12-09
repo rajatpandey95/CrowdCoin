@@ -28,6 +28,7 @@ const Wrapper = styled.section`
     border: 1px solid black;
     background-color: aliceblue;
     border-radius: 10px;
+    overflow: hidden;
   }
   img {
     height: 20em;
